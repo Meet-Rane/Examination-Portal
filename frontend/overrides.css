@@ -1,0 +1,14 @@
+/* Enhancements for the MySQL-backed results experience. */
+.result-history { margin-top: 22px; padding: 25px 28px; }
+.result-live { color: #299269; font-size: 11px; font-weight: 700; }
+.results-list { margin-top: 18px; }
+.result-row { display: grid; grid-template-columns: 62px 1fr auto auto; align-items: center; gap: 16px; padding: 16px 0; border-top: 1px solid #efedf3; }
+.result-course { background: #eeeaff; color: #5846b3; border-radius: 6px; font-size: 10px; font-weight: 700; padding: 7px 5px; text-align: center; }
+.result-row strong, .result-row small { display: block; }
+.result-row strong { font-size: 13px; }
+.result-row small { color: #858193; font-size: 11px; margin-top: 4px; }
+.result-score { color: #302858; font-family: Fraunces, serif; font-size: 22px; font-weight: 700; }
+.result-score small { display: inline; font-family: "DM Sans", sans-serif; font-size: 11px; margin-left: 2px; }
+.result-status { background: #e8f6ef; border-radius: 14px; color: #25865e; font-size: 10px; font-weight: 700; padding: 6px 9px; }
+.empty-results { color: #858193; font-size: 13px; margin: 21px 0 4px; }
+@media (max-width: 670px) { .result-row { grid-template-columns: 54px 1fr auto; gap: 10px; } .result-status { display: none; } .result-history { padding: 21px 18px; } }

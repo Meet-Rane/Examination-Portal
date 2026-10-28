@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const mysql = require('mysql2/promise');
 
-const ROOT = __dirname;
+const FRONTEND_ROOT = path.resolve(__dirname, '..', 'frontend');
 const PORT = Number(process.argv[2] || 3001);
 let config;
 try { config = require('./config'); }
@@ -50,6 +50,14 @@ async function saveResponse(attemptId, questionNumber, optionIndex) {
 }
 async function api(request, response, url) {
   if (request.method === 'GET' && url.pathname === '/api/exams/1/attempt') return json(response, 200, { attempt: await getAttempt() });
+  if (request.method === 'GET' && url.pathname === '/api/results') {
+    const [results] = await pool.execute(`SELECT c.course_code, c.title AS courseTitle, e.title AS examTitle,
+      e.total_marks AS totalMarks, a.score, a.status, a.submitted_at AS submittedAt
+      FROM exam_attempts a JOIN exams e ON e.exam_id = a.exam_id
+      JOIN courses c ON c.course_id = e.course_id
+      WHERE a.student_id = ? AND a.status = 'Submitted' ORDER BY a.submitted_at DESC`, [studentId]);
+    return json(response, 200, { results });
+  }
   if (request.method === 'POST' && url.pathname === '/api/exams/1/attempt') {
     const current = await getAttempt();
     if (current?.status === 'Submitted') return json(response, 409, { message: 'This exam has already been submitted.', attempt: current });
@@ -84,8 +92,8 @@ const server = http.createServer(async (request, response) => {
   try {
     if (url.pathname.startsWith('/api/')) return await api(request, response, url);
     const relative = url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname).replace(/^\/+/, '');
-    const filePath = path.resolve(ROOT, relative);
-    if (!filePath.startsWith(ROOT + path.sep) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) { response.writeHead(404); return response.end('Not found'); }
+    const filePath = path.resolve(FRONTEND_ROOT, relative);
+    if (!filePath.startsWith(FRONTEND_ROOT + path.sep) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) { response.writeHead(404); return response.end('Not found'); }
     response.writeHead(200, { 'Content-Type': MIME[path.extname(filePath)] || 'application/octet-stream' });
     fs.createReadStream(filePath).pipe(response);
   } catch (error) { console.error(error); json(response, error.status || 500, { message: error.message || 'Server error.' }); }

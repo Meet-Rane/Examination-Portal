@@ -60,6 +60,25 @@ async function loadAttempt() {
   } catch { toast("Start the project using npm start so the database is available.", true); }
 }
 
+async function loadResults() {
+  try {
+    const { results } = await request('/api/results');
+    const list = $("#resultsList");
+    $("#completedAssessments").textContent = results.length;
+    if (!results.length) {
+      $("#resultAverage").textContent = '—';
+      $("#highestScore").textContent = '—';
+      list.innerHTML = '<p class="empty-results">No submitted exams yet. Your score will appear here after you submit an exam.</p>';
+      return;
+    }
+    const percentages = results.map(result => (Number(result.score) / Number(result.totalMarks)) * 100);
+    $("#resultAverage").textContent = `${(percentages.reduce((total, score) => total + score, 0) / results.length).toFixed(1)}%`;
+    const highest = results.reduce((best, result) => Number(result.score) > Number(best.score) ? result : best);
+    $("#highestScore").textContent = `${highest.score}/${highest.totalMarks}`;
+    list.innerHTML = results.map(result => `<article class="result-row"><span class="result-course">${result.course_code}</span><div><strong>${result.courseTitle}</strong><small>${result.examTitle} · Submitted ${new Date(result.submittedAt).toLocaleDateString()}</small></div><span class="result-score">${result.score}<small>/${result.totalMarks}</small></span><span class="result-status">Submitted</span></article>`).join('');
+  } catch { /* Results remain empty until the backend is available. */ }
+}
+
 function formatTime(seconds) {
   const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
   const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
@@ -125,6 +144,7 @@ async function submitExam() {
     $("#submitModal").classList.remove("show");
     $("#examModal").classList.remove("show");
     setSubmitted(attempt);
+    loadResults();
     toast("Your exam was submitted and saved to the database.");
   } catch (error) { toast(error.message, true); }
 }
@@ -153,3 +173,4 @@ $(".mobile-menu").addEventListener("click", () => $(".sidebar").classList.toggle
 let dashboardSeconds = 1 * 3600 + 42 * 60 + 18;
 setInterval(() => { dashboardSeconds = Math.max(0, dashboardSeconds - 1); $("#countdown").textContent = formatTime(dashboardSeconds); }, 1000);
 loadAttempt();
+loadResults();

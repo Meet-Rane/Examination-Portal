@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examly | Student Examination Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard" aria-label="Examly home"><span class="brand-mark">e</span><span>examly</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="active" href="#dashboard"><span>▦</span> Dashboard</a>
+        <a href="#exams"><span>◫</span> My exams <b>3</b></a>
+        <a href="#results"><span>◌</span> Results</a>
+        <a href="#calendar"><span>□</span> Calendar</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="support"><span>?</span><div><strong>Need help?</strong><small>Visit support center</small></div></div>
+        <div class="student-mini"><div class="avatar">AS</div><div><strong>Aisha Sharma</strong><small>BCA · Semester 4</small></div><button aria-label="More options">•••</button></div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="mobile-menu" aria-label="Open menu">☰</button>
+        <div class="crumb">Student portal <span>/</span> Dashboard</div>
+        <div class="top-actions"><button class="icon-button" aria-label="Notifications">♧<i></i></button><button class="help-button">? <span>Help</span></button></div>
+      </header>
+
+      <section id="dashboard" class="page active-page">
+        <div class="welcome-row"><div><p class="eyebrow">WEDNESDAY, 28 OCTOBER</p><h1>Good morning, Aisha <span>✦</span></h1><p class="subtext">You have one exam coming up. A little focus goes a long way.</p></div><button class="outline-button">Download schedule <span>↓</span></button></div>
+
+        <section class="next-exam card">
+          <div class="exam-icon">⌁</div>
+          <div class="exam-info"><span class="pill amber">UP NEXT</span><h2>Database Management Systems</h2><p>Midterm examination · CS-304</p><div class="exam-meta"><span>◷ <strong>Today, 10:30 AM</strong></span><span>◴ 90 minutes</span><span>◉ 50 marks</span></div></div>
+          <div class="exam-cta"><p id="examState">Starts in <strong id="countdown">01:42:18</strong></p><button id="startExam" class="primary-button">Start exam <span>→</span></button></div>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="card upcoming"><div class="section-head"><div><p class="eyebrow">YOUR SCHEDULE</p><h2>Upcoming exams</h2></div><a href="#exams">View all →</a></div>
+            <div class="exam-list">
+              <article><time><b>28</b><span>OCT</span></time><div><h3>Database Management Systems</h3><p>10:30 AM · 90 min · Online</p></div><span class="status soon">Today</span></article>
+              <article><time><b>31</b><span>OCT</span></time><div><h3>Operating Systems</h3><p>09:00 AM · 120 min · Lab 3</p></div><span class="status">In 3 days</span></article>
+              <article><time><b>05</b><span>NOV</span></time><div><h3>Software Engineering</h3><p>11:00 AM · 90 min · Online</p></div><span class="status">In 8 days</span></article>
+            </div>
+          </section>
+          <section class="card progress-card"><div class="section-head"><div><p class="eyebrow">SEMESTER PROGRESS</p><h2>Keep it going</h2></div><button class="dots" aria-label="Options">•••</button></div><div class="ring-wrap"><div class="progress-ring"><span>72<small>%</small></span></div><div><h3>Almost there!</h3><p>You have completed 8 of 11 assessments this semester.</p></div></div><div class="progress-legend"><span><i class="done"></i> Completed <b>8</b></span><span><i class="left"></i> Remaining <b>3</b></span></div></section>
+        </div>
+
+        <section class="card performance"><div class="section-head"><div><p class="eyebrow">RECENT PERFORMANCE</p><h2>Your results</h2></div><a href="#results">All results →</a></div><div class="results-grid"><div><span class="subject-dot purple"></span><p>Computer Networks</p><strong>86<small>/100</small></strong><em>+8% from last test</em></div><div><span class="subject-dot orange"></span><p>Data Structures</p><strong>91<small>/100</small></strong><em>Excellent work!</em></div><div><span class="subject-dot blue"></span><p>Web Technologies</p><strong>78<small>/100</small></strong><em>+5% from last test</em></div></div></section>
+      </section>
+
+      <section id="exams" class="page"><div class="simple-page"><p class="eyebrow">EXAMINATION CENTRE</p><h1>My exams</h1><p class="subtext">Your scheduled assessments and examination history.</p><div class="card table-card"><div class="table-row heading"><span>EXAM</span><span>DATE & TIME</span><span>DURATION</span><span>STATUS</span></div><div class="table-row"><strong>Database Management Systems<small>CS-304 · Midterm</small></strong><span>Today, 10:30 AM</span><span>90 minutes</span><button id="startExamTable" class="primary-button small">Start exam</button></div><div class="table-row"><strong>Operating Systems<small>CS-301 · Midterm</small></strong><span>31 Oct, 09:00 AM</span><span>120 minutes</span><span class="status">Upcoming</span></div><div class="table-row"><strong>Software Engineering<small>CS-307 · Quiz 2</small></strong><span>05 Nov, 11:00 AM</span><span>90 minutes</span><span class="status">Upcoming</span></div></div></div></section>
+      <section id="results" class="page"><div class="simple-page"><p class="eyebrow">ACADEMIC RECORD</p><h1>Results</h1><p class="subtext">Your completed assessment scores.</p><div class="card result-summary"><div><span>Current average</span><strong>85.0%</strong></div><div><span>Highest score</span><strong>91/100</strong></div><div><span>Assessments done</span><strong>8</strong></div></div></div></section>
+      <section id="calendar" class="page"><div class="simple-page"><p class="eyebrow">OCTOBER 2026</p><h1>Assessment calendar</h1><p class="subtext">Keep track of key assessment dates.</p><div class="card calendar-placeholder"><span>28</span><div><strong>Database Management Systems</strong><p>Online exam · 10:30 AM — 12:00 PM</p></div></div></div></section>
+    </main>
+
+    <div id="examModal" class="modal" aria-hidden="true">
+      <div class="exam-modal"><header><div><span class="pill violet">CS-304 · MIDTERM</span><h2>Database Management Systems</h2></div><div class="timer"><small>TIME LEFT</small><strong id="examTimer">01:30:00</strong></div></header><div class="exam-body"><aside class="question-nav"><p>QUESTION PALETTE</p><div id="questionDots" class="question-dots"></div><div class="legend"><span><i class="answered"></i> Answered</span><span><i></i> Not visited</span></div><button id="finishExam" class="finish-button">Finish exam</button></aside><article class="question-area"><div class="question-label"><span>Question <b id="questionNumber">1</b> of 10</span><span>1 mark</span></div><h3 id="questionText">Which SQL command is used to retrieve data from a database?</h3><div id="answers" class="answers"></div><div class="question-controls"><button id="previousQuestion" class="outline-button">← Previous</button><button id="nextQuestion" class="primary-button">Save & next →</button></div></article></div></div>
+    </div>
+    <div id="submitModal" class="modal confirm" aria-hidden="true"><div class="confirm-box"><div class="check">✓</div><h2>Ready to submit?</h2><p>You have answered <strong id="answeredCount">0</strong> of 10 questions. Once submitted, you cannot change your answers.</p><div><button id="reviewExam" class="outline-button">Review answers</button><button id="confirmSubmit" class="primary-button">Submit exam</button></div></div></div>
+    <div id="toast" class="toast">Your exam has been submitted successfully.</div>
+    <script src="app.js"></script>
+  </body>
+</html>
